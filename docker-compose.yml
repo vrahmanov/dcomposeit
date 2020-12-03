@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "5000:5000"
+  redis:
+    image: "redis:alpine"
+    volumes:
+      - .:/code
+
+#networks:
+#  default:
+#    external:
+#      name: external-example
