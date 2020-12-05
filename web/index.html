@@ -1,61 +1,89 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <title>HelloWorldUnbound</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HTML5 skeleton index.html">
-  <meta name="keywords" content="html5,skeleton,index,homepage,jquery,bootstrap">
-  <meta name="author" content="Arul John">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" rel="stylesheet">
-  </head>
+<head>
+    <title>HelloWorldUnbound</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="HTML5 skeleton index.html">
+    <meta name="keywords" content="html5,skeleton,index,homepage,jquery,bootstrap">
+    <meta name="author" content="Arul John">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" rel="stylesheet">
+</head>
 <body>
 <header class="navbar navbar-default">
-  <nav>
-   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-    <span class="sr-only">Toggle navigation</span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-   </button>
-   <a class="navbar-brand" href="/">Unbound Environment - Hello World</a>
-  </nav>
-  <div class="container">
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="https://github.com/vrahmanov/dcomposeit"><span class="fa fa-sign-in"></span> Origin </a></li>
-      </ul>
+    <nav>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Unbound Environment - Hello World</a>
+    </nav>
+    <div class="container">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://github.com/vrahmanov/dcomposeit"><span class="fa fa-sign-in"></span> Origin </a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </header>
 <main role="main">
-  <div class="container">
-    <div class="row">
-      <h1>Docker-Composed Environment</h1>
-      <p>Simple DEV environment setup with Docker and Docker Compose</p>
-      <p>Availible Endpoints</p>
+    <div class="container">
+        <div class="row">
+            <div class="query" align="right">
+                <div>
+                    <button type="submit" onclick="queryServer()">GET</button>
+                    <input id="path" type="text" value="/customers">
+                </div>
+                <h3>Server response</h3>
+                <div id="response">
+                </div>
+            </div>
+            <h1>Docker-Composed Environment</h1>
+            <h4>Simple DEV environment setup with Docker and Docker Compose</h4>
+            <p>Availible Endpoints</p>
 
-      <p><a href="http://localhost/"><span class="fa fa-sign-in"></span> Front End Nginx </a><p1>   <<---- YOU ARE CURRENTLY HERE </p1></p>
-      <p><a href="http://localhost/api"><span class="fa fa-sign-in"></span> Back End Base Healthcheck </a></p>
-      <p><a href="http://localhost/api/customers"><span class="fa fa-sign-in"></span> Back End GET \ POST MySql </a></p>
-      <p> <a href="http://localhost/api/insert"><span class="fa fa-sign-in"></span> Back End POST Explicit MySql</a></p>
-              <img src="./docker.png" width="500" height="500"/>
-
+            <p><a href="http://localhost/"><span class="fa fa-sign-in"></span> Front End Nginx </a>
+                <p1> <<---- YOU ARE CURRENTLY HERE</p1>
+            </p>
+            <p><a href="http://localhost/api"><span class="fa fa-sign-in"></span> Back End Base Healthcheck </a></p>
+            <p><a href="http://localhost/api/customers"><span class="fa fa-sign-in"></span> Back End GET \ POST MySql
+            </a></p>
+            <p><a href="http://localhost/api/insert"><span class="fa fa-sign-in"></span> Back End POST Explicit
+                MySql</a></p>
+            <img src="./docker.png" width="500" height="500"/>
+        </div>
     </div>
-
-  </div>
-
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 //<![CDATA[
 window.jQuery || document.write(unescape('%3Cscript src="/jquery.min.js">%3C/script>'))
 //]]>
+
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 //<![CDATA[
 typeof $().modal == 'function'  || document.write(unescape('%3Cscript src="/bootstrap.min.js">%3C/script>'))
 //]]>
+
+
+</script>
+<script type="text/javascript">
+    function queryServer() {
+        const Http = new XMLHttpRequest();
+        const path = document.getElementById('path').value;
+        const url = "/api/";
+        Http.open("GET", url + path);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            document.getElementById('response').innerHTML = Http.responseText;
+        }
+    }
+
 </script>
 </body>
 </html>
