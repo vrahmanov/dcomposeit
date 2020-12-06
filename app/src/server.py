@@ -112,7 +112,17 @@ def insertcustomer():
 
 @server.route('/')
 def hello():
-    return flask.jsonify({"status": "200"})
+    global conn
+    if not conn:
+        conn = DBManager(password_file='/run/secrets/db-password', dbname_file='/run/secrets/db-name')
+        conn.populate_db()
+    try:
+        rec = conn.query_titles()
+        return flask.jsonify({"status": "200"}, {"DB": "Healthy"})
+        #return flask.jsonify({"response": "New line inserted Explicitly %s" % content})
+    except:
+        return flask.jsonify({"status": "500"}, {"DB": "ERROR"})
+
 
 
 if __name__ == '__main__':

@@ -35,9 +35,17 @@
           <button type="submit" onclick="queryServer()">GET</button>
           <input id="path" type="text" value="/customers">
         </div>
-        <h3>Server response</h3>
-        <div id="response">
+<!--        <h3>Server response</h3>-->
+<!--        <div id="response">-->
+<!--        </div>-->
+      </div>
+                      <div class="query" align="right">
+        <div>
+          <button type="submit" onclick="postServer()">POST</button>
+          <input id="path" type="text" value="/customers">
         </div>
+<!--        <h3>Server response</h3>-->
+        <div id="response"></div>
       </div>
       <h1>Docker-Composed Environment</h1>
       <h4>Simple DEV environment setup with Docker and Docker Compose</h4>
@@ -70,6 +78,17 @@ typeof $().modal == 'function'  || document.write(unescape('%3Cscript src="/boot
         const path = document.getElementById('path').value;
         const url = "/api/";
         Http.open("GET", url + path);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            document.getElementById('response').innerHTML = Http.responseText;
+        }
+    }
+        function postServer() {
+        const Http = new XMLHttpRequest();
+        const path = document.getElementById('path').value;
+        const url = "/api/";
+        Http.open("POST", url + path);
         Http.send();
 
         Http.onreadystatechange = (e) => {
