@@ -6,19 +6,21 @@ services:
     restart: always
     secrets:
       - db-password
+      - db-name
     volumes:
       - db-data:/var/lib/mysql
     networks:
       - backend-network
     environment:
-      - MYSQL_DATABASE=example
+      - MYSQL_DATABASE=candidate
       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
-  
+
   app:
     build: app
     restart: always
     secrets:
       - db-password
+      - db-name
     networks:
       - backend-network
       - frontend-network
@@ -30,11 +32,14 @@ services:
       - 80:80
     networks:
       - frontend-network
+
 volumes:
   db-data:
 secrets:
   db-password:
     file: db/password.txt
+  db-name:
+    file: db/dbname.txt
 networks:
   backend-network:
   frontend-network:
