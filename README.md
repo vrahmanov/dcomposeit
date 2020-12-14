@@ -1,5 +1,5 @@
 ###Docker env Architecture
-![alt tag](./docker.png)
+![alt tag](./diagram.png)
 # Full stack Docker Env
 Demo running full env with dockers including :
 
