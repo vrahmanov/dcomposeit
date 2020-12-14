@@ -51,10 +51,10 @@
       <h4>Simple DEV environment setup with Docker and Docker Compose</h4>
       <p>Availible Endpoints</p>
 
-      <p><a href="http://localhost/"><span class="fa fa-sign-in"></span> Front End Nginx </a><p1>   <<---- YOU ARE CURRENTLY HERE </p1></p>
-      <p><a href="http://localhost/api"><span class="fa fa-sign-in"></span> Back End Base Healthcheck </a></p>
-      <p><a href="http://localhost/api/customers"><span class="fa fa-sign-in"></span> Back End GET \ POST MySql </a></p>
-      <p> <a href="http://localhost/api/insert"><span class="fa fa-sign-in"></span> Back End POST Explicit MySql</a></p>
+      <p><a href="https://ubt.dev/"><span class="fa fa-sign-in"></span> Front End Nginx </a><p1>   <<---- YOU ARE CURRENTLY HERE </p1></p>
+      <p><a href="https://ubt.dev/app1/api"><span class="fa fa-sign-in"></span> Back End Base Healthcheck </a></p>
+      <p><a href="https://ubt.dev/app1/api/customers"><span class="fa fa-sign-in"></span> Back End GET \ POST MySql </a></p>
+      <p> <a href="https://ubt.dev/app1/api/insert"><span class="fa fa-sign-in"></span> Back End POST Explicit MySql</a></p>
               <img src="./docker.png" width="500" height="500"/>
     </div>
   </div>
@@ -76,7 +76,7 @@ typeof $().modal == 'function'  || document.write(unescape('%3Cscript src="/boot
     function queryServer() {
         const Http = new XMLHttpRequest();
         const path = document.getElementById('path').value;
-        const url = "/api/";
+        const url = "/app1/api/";
         Http.open("GET", url + path);
         Http.send();
 
@@ -87,7 +87,7 @@ typeof $().modal == 'function'  || document.write(unescape('%3Cscript src="/boot
         function postServer() {
         const Http = new XMLHttpRequest();
         const path = document.getElementById('path').value;
-        const url = "/api/";
+        const url = "/app1/api/";
         Http.open("POST", url + path);
         Http.send();
 

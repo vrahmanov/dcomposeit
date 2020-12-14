@@ -1,5 +1,6 @@
 version: "3.7"
 services:
+  #REST SERVICE SCOPE 1 - POST GET DB API Chapter1 Unbound
   db:
     image: mysql:8.0.19
     command: '--default-authentication-plugin=mysql_native_password'
@@ -30,11 +31,70 @@ services:
     restart: always
     ports:
       - 80:80
+      - 443:443
+      - 3001:5006
+      - 3002:8080
     networks:
       - frontend-network
+      - backend-network
+    #network_mode: bridge
+    volumes:
+      #- ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      #- ./site:/usr/share/nginx/html
+      - ./web/localcerts/ubt.dev.crt:/etc/nginx/ubt.dev.crt # New Line!
+      - ./web/localcerts/ubt.dev.key:/etc/nginx/ubt.dev.key # New Line!
+
+  ###WS app example
+
+  chat-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: chat/client
+    command: node server.js
+    ports:
+      - '8080:8080'
+    networks:
+      - frontend-network
+#    network_mode: host
+
+  chat-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: chat/api
+    command: bash -c "forever --watch src/index.js"
+    environment:
+      - POSTGRES_CONNECTION_URI=postgres://postgres:password@postgres:5432/chat
+    ports:
+      - '5006:3000'
+    expose:
+      - 5006
+    networks:
+      - backend-network
+      - frontend-network
+#    network_mode: host
+
+
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: chat
+    ports:
+      - '5005:5432'
+    expose:
+      - '5432'
+    networks:
+      - backend-network
 
 volumes:
+  postgres-data:
   db-data:
+
 secrets:
   db-password:
     file: db/password.txt
@@ -43,3 +103,4 @@ secrets:
 networks:
   backend-network:
   frontend-network:
+#    external: true
